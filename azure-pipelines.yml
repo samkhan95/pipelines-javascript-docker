@@ -16,12 +16,17 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: 'latest'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
-- script: |
-   docker login testdockrregistry.azurecr.io -u testdockrregistry -p 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
-   docker pull testdockrregistry.azurecr.io/$(imageName)
-   docker run -d -p 80:80 testdockrregistry.azurecr.io/$(imageName)
-  displayName: 'Command Line Script'
+# - script: |
+#    docker login testdockrregistry.azurecr.io -u testdockrregistry -p 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
+#    docker pull testdockrregistry.azurecr.io/$(imageName)
+#    docker run -d -p 80:80 testdockrregistry.azurecr.io/$(imageName)
+#   displayName: 'Command Line Script'
 
 
 
