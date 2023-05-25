@@ -15,27 +15,12 @@ steps:
     repository: $(imageName)
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+    tags: 'latest'
 
 - script: |
    docker login testdockrregistry.azurecr.io -u testdockrregistry -p 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
-   docker pull testdockrregistry.azurecr.io/$(imageName):11
-   docker run -d -p 80:80 testdockrregistry.azurecr.io/$(imageName):11
-  displayName: 'Command Line Script'
-
-
-- task: Docker@2
-  displayName: buildAndPush
-  inputs:
-    containerRegistry: acrconn
-    repository: app
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-
-- script: |
-   docker login testdockrregistry.azurecr.io -u testdockrregistry --password-stdin 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
-   docker pull testdockrregistry.azurecr.io/app:7
-   docker run -d -p 80:80 testdockrregistry.azurecr.io/app:7 
+   docker pull testdockrregistry.azurecr.io/$(imageName)
+   docker run -d -p 80:80 testdockrregistry.azurecr.io/$(imageName)
   displayName: 'Command Line Script'
 
 
