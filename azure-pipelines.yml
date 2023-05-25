@@ -4,7 +4,6 @@ trigger:
 
 pool:
   name: 'Default'
-  vmImage: 'ubuntu-latest' 
 
 variables:
    imageName: 'pipelines-javascript-docker'
@@ -13,14 +12,30 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'acrconn'
-    repository: 'docker/js-app'
+    repository: $(imageName)
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
 
 - script: |
+   docker login testdockrregistry.azurecr.io -u testdockrregistry -p 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
+   docker pull testdockrregistry.azurecr.io/$(imageName):11
+   docker run -d -p 80:80 testdockrregistry.azurecr.io/$(imageName):11
+  displayName: 'Command Line Script'
+
+
+- task: Docker@2
+  displayName: buildAndPush
+  inputs:
+    containerRegistry: acrconn
+    repository: app
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+
+- script: |
    docker login testdockrregistry.azurecr.io -u testdockrregistry --password-stdin 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
-   docker pull testdockrregistry.azurecr.io/docker/js-app:11
-   docker run -d -p 80:80 testdockrregistry.azurecr.io/docker/js-app:11
+   docker pull testdockrregistry.azurecr.io/app:7
+   docker run -d -p 80:80 testdockrregistry.azurecr.io/app:7 
   displayName: 'Command Line Script'
 
 
