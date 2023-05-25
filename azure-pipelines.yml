@@ -18,7 +18,7 @@ steps:
     tags: 'latest'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: 'artifact'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
