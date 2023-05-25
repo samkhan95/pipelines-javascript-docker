@@ -16,11 +16,7 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: 'latest'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'artifact'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+
 
 # - script: |
 #    docker login testdockrregistry.azurecr.io -u testdockrregistry -p 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
