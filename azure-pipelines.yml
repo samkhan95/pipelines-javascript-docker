@@ -16,12 +16,11 @@ steps:
     repository: 'docker/js-app'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    tags: 'latest'
 
 - script: |
    docker login testdockrregistry.azurecr.io -u testdockrregistry --password-stdin 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
-   docker pull testdockrregistry.azurecr.io/docker/js-app
-   docker run -d -p 80:80 testdockrregistry.azurecr.io/docker/js-app
+   docker pull testdockrregistry.azurecr.io/docker/js-app:11
+   docker run -d -p 80:80 testdockrregistry.azurecr.io/docker/js-app:11
   displayName: 'Command Line Script'
 
 
