@@ -3,26 +3,25 @@ trigger:
  - main
 
 pool:
-  name: 'test pool'
+  name: 'Default'
   vmImage: 'ubuntu-latest' 
 
 variables:
    imageName: 'pipelines-javascript-docker'
 
 steps:
-- task: CmdLine@2
-  inputs:
-    script: |
-      sudo apt-get update
-      sudo apt-get install ca-certificates curl gnup
-      curl -fsSL https://get.docker.com -o get-docker.sh
-      sudo sh ./get-docker.sh
-      sudo groupadd docker
-      sudo usermod -aG docker ${USER}
-
 - task: Docker@2
-  displayName: Build an image
   inputs:
-    repository: $(imageName)
-    command: build
-    Dockerfile: app/Dockerfile
+    containerRegistry: 'acrconn'
+    repository: 'docker/js-app'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+
+- script: |
+   docker login testdockrregistry.azurecr.io -u testdockrregistry --password-stdin 2SJb5z90nnEIsdjRgOQGZZZxY7sCEvOc/xQ3nseT2r+ACRBMOyq9
+   docker pull testdockrregistry.azurecr.io/app:7
+   docker run -d -p 80:80 testdockrregistry.azurecr.io/app:7 
+  displayName: 'Command Line Script'
+
+
+
