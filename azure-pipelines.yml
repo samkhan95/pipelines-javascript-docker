@@ -17,6 +17,8 @@ steps:
       sudo apt-get install ca-certificates curl gnup
       curl -fsSL https://get.docker.com -o get-docker.sh
       sudo sh ./get-docker.sh
+      sudo groupadd docker
+      sudo usermod -aG docker ${USER}
 
 - task: Docker@2
   displayName: Build an image
