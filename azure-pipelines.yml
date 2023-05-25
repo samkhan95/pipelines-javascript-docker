@@ -1,4 +1,5 @@
 trigger:
+
  - main
 
 pool:
@@ -9,12 +10,22 @@ variables:
    imageName: 'pipelines-javascript-docker'
 
 steps:
-  - task: DockerInstaller@0
-    inputs:
-      dockerVersion: '17.09.0-ce'
-  - task: Docker@2
-    displayName: Build an image
-    inputs:
-      repository: $(imageName)
-      command: build
-      Dockerfile: app/Dockerfile
+- task: CmdLine@2
+  inputs:
+    script: |
+      sudo apt-get update
+      sudo apt-get install ca-certificates curl gnup
+      curl -fsSL https://get.docker.com -o get-docker.sh
+      sudo sh ./get-docker.sh
+- task: Docker@2
+  inputs:
+    containerRegistry: 'mydemodockrregistry.azurecr.io'
+    repository: 'app:v1'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+  # - task: Docker@2
+  #   displayName: Build an image
+  #   inputs:
+  #     repository: $(imageName)
+  #     command: build
+  #     Dockerfile: app/Dockerfile
