@@ -17,15 +17,10 @@ steps:
       sudo apt-get install ca-certificates curl gnup
       curl -fsSL https://get.docker.com -o get-docker.sh
       sudo sh ./get-docker.sh
+
 - task: Docker@2
+  displayName: Build an image
   inputs:
-    containerRegistry: 'mydemodockrregistry.azurecr.io'
-    repository: 'app:v1'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-  # - task: Docker@2
-  #   displayName: Build an image
-  #   inputs:
-  #     repository: $(imageName)
-  #     command: build
-  #     Dockerfile: app/Dockerfile
+    repository: $(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
