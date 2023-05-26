@@ -6,8 +6,6 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # Install setcap package
-RUN apt update
-
 RUN apt install libcap2-bin
 # ...
 # Give access to the ports below 1024 to non-root users
