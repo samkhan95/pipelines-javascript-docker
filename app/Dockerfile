@@ -6,12 +6,12 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # Install setcap package
-RUN sudo apt update
+RUN apt update
 
-RUN sudo apt install libcap2-bin
+RUN apt install libcap2-bin
 # ...
 # Give access to the ports below 1024 to non-root users
-RUN sudo setcap 'cap_net_bind_service=+ep' $(readlink -f $(which node))
+RUN setcap 'cap_net_bind_service=+ep' $(readlink -f $(which node))
 
 COPY ["package.json", "package-lock.json*", "./"]
 
