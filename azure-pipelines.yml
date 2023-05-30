@@ -18,7 +18,7 @@ steps:
     dockerfilePath: 'Dockerfile'
     imageToBuild: 'mytesdockregistry.azurecr.io/sample/app:latest'
     imageToDeploy: 'mytesdockregistry.azurecr.io/sample/app:latest'
-    containerAppName: 'aegis-app'
+    containerAppName: 'sample-app'
     resourceGroup: 'myRG'
     containerAppEnvironment: 'managedEnvironment-myRG-a6a8'
     targetPort: '80'
