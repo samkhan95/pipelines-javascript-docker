@@ -1,5 +1,4 @@
 trigger:
-
  - main
 
 pool:
@@ -9,13 +8,29 @@ variables:
    imageName: 'pipelines-javascript-docker'
 
 steps:
-- task: Docker@2
+- task: AzureContainerApps@1
   inputs:
-    containerRegistry: 'acrconn'
-    repository: $(imageName)
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: 'latest'
+    appSourcePath: '/app'
+    azureSubscription: 'rgconn'
+    acrName: 'mytesdockregistry'
+    acrUsername: 'mytesdockregistry'
+    acrPassword: 'trFBbNSbNy5JIF98gT29OKmmjiePz2zY8LriEys5r8+ACRB3J/f/'
+    dockerfilePath: '**/Dockerfile'
+    imageToBuild: 'mytesdockregistry.azurecr.io/sample/app:$(Build.BuildNumber)'
+    imageToDeploy: 'mytesdockregistry.azurecr.io/sample/app:$(Build.BuildNumber)'
+    containerAppName: 'aegis-app'
+    resourceGroup: 'myRG'
+    containerAppEnvironment: 'mytestappsvc-env'
+    targetPort: '80'
+    location: 'West US 2'
+    yamlConfigPath: '/app'
+# - task: Docker@2
+#   inputs:
+#     containerRegistry: 'acrconn'
+#     repository: $(imageName)
+#     command: 'buildAndPush'
+#     Dockerfile: '**/Dockerfile'
+#     tags: 'latest'
 
 
 # - script: |
