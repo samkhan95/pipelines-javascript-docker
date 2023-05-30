@@ -20,9 +20,9 @@ steps:
     imageToDeploy: 'mytesdockregistry.azurecr.io/sample/app:$(Build.BuildNumber)'
     containerAppName: 'aegis-app'
     resourceGroup: 'myRG'
-    containerAppEnvironment: 'mytestappsvc-env'
+    containerAppEnvironment: 'managedEnvironment-myRG-a6a8'
     targetPort: '80'
-    location: 'West US 2'
+    location: 'EAST US'
 # - task: Docker@2
 #   inputs:
 #     containerRegistry: 'acrconn'
